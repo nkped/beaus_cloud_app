@@ -1,26 +1,20 @@
 import app from "./server.js"
-import mongodb from "mongodb"
 import dotenv from "dotenv"
 import mongoose from "mongoose"
 
 dotenv.config()
 
-const MongoClient = mongodb.MongoClient
 
 const port = process.env.PORT || 8000
 
-MongoClient.connect(
-  process.env.RESTREVIEWS_DB_URI,
-  
-  )
-  .catch(err => {
-    console.error(err.stack)
-    process.exit(1)
-  })
-  .then(async client => {
-    app.listen(port, () => {
-      console.log(`listening on port ${port}`)
-    })
-  })
+mongoose.connect(process.env.RESTREVIEWS_DB_URI,{
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
+const db = mongoose.connection;
+db.on('error', (error) => console.log(error));
+db.once('open', () => console.log('Database Connected...'));
 
 
+app.listen(port, () => {
+      console.log(`listening on port ${port}`)})
