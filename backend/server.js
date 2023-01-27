@@ -9,7 +9,7 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
-
+//res route er temp..
 app.use("/api/v1/restaurants", restaurants)
 app.use("/api/v1/blogposts", blogposts)
 //If req to not found route:
